@@ -1,0 +1,1 @@
+symbols = ["ETH", "SOL", "BTC","BNB"]

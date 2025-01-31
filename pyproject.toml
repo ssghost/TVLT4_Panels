@@ -1,0 +1,15 @@
+[project]
+name = "TVLT4_Panels"
+version = "0.1.0"
+description = "Default template for PDM package"
+authors = [
+    {name = "ssghost", email = "ssprof0@gmail.com"},
+]
+dependencies = ["pandas>=1.1.0", "plotly>=6.0.0", "datapane>=0.17.0"]
+requires-python = "==3.13.*"
+readme = "README.md"
+license = {text = "MIT"}
+
+
+[tool.pdm]
+distribution = false
