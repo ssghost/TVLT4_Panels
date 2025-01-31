@@ -1,10 +1,7 @@
 import pandas as pd
 import numpy as np
 import plotly.figure_factory as ff
-import plotly.offline as py
 import plotly.graph_objs as go
-import plotly.express as px
-import datetime as dt
 import plotly.io as pio
 import datapane as dp
 
