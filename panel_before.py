@@ -12,7 +12,7 @@ def main() -> None:
 
     data_dict = {}
     for sym in symbols:
-        data = pd.read_csv("./zoom_stock_data.csv")
+        data = pd.read_csv("./{sym}.csv")
         data["date"] = pd.to_datetime(data["date"], format="%d/%m/%Y")
         data_dict[sym] = data
     
