@@ -12,8 +12,8 @@ def main() -> None:
 
     data_dict = {}
     for sym in symbols:
-        data = pd.read_csv("./{sym}.csv")
-        data["date"] = pd.to_datetime(data["date"], format="%d/%m/%Y")
+        data = pd.read_csv(f"./crypto-daily/{sym}.csv")
+        data["date"] = pd.to_datetime(data["date"], format="%Y/%m/%d")
         data_dict[sym] = data
     
     fig_list = []
@@ -24,7 +24,7 @@ def main() -> None:
         trace1 = go.Scatter(x=data.date, y=data["10-day MA"], name="10-day MA")
         trace2 = go.Scatter(x=data.date, y=data["20-day MA"], name="20-day MA")
         fig = go.Figure([trace0, trace1, trace2])
-        fig.update_layout(title={"text": "{sym} Price", "x": 0.5, "xanchor": "center"})
+        fig.update_layout(title={f"text": "{sym} Price", "x": 0.5, "xanchor": "center"})
         fig_list.append(fig)
 
     trace_list = []
@@ -89,7 +89,7 @@ def main() -> None:
     bignum_list = []
     for sym, data in data_dict.items:
         bignum = dp.BigNumber(
-            heading="{sym} Performance",
+            heading=f"{sym} Performance",
                 value="${:,.2f}".format(data.iloc[-1].close),
                 prev_value="${:,.2f}".format(data.iloc[-1].open),
         )

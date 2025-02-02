@@ -9,8 +9,8 @@ from symbols import *
 def data_load() -> Dict[str, pd.DataFrame]:
     data_dict = {}
     for sym in symbols:
-        data = pd.read_csv("./{sym}.csv")
-        data["date"] = pd.to_datetime(data["date"], format="%d/%m/%Y")
+        data = pd.read_csv(f"./crypto_daily/{sym}.csv")
+        data["date"] = pd.to_datetime(data["date"], format="%Y/%m/%d")
         data_dict[sym] = data
     return data_dict
 
