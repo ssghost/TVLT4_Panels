@@ -31,7 +31,7 @@ def get_kelly(data:pd.DataFrame) -> np.ndarray:
     )
     return np.array(solution.x)
 
-def main() -> Dict[str, pd.DataFrame]:
+def gen_kelly() -> Dict[str, pd.DataFrame]:
     data_dict = data_load()
     kelly_dict = {}
     for sym, data in data_dict.items:
@@ -40,9 +40,9 @@ def main() -> Dict[str, pd.DataFrame]:
         X = X.rolling(25).agg(["mean", "std"]).dropna
         X = X.apply(get_kelly, axis=1)
         Kelly = Y.mul(X.shift()).dropna().add(1).cumprod().sub(1)
-        kelly_dict[sym] = Kelly
+        kelly_dict[sym] = pd.DataFrame({"date": data["date"], "close": data["close"], "kelly": Kelly}, columns=["date","close","kelly"])
 
     return kelly_dict
 
 if '__name__' == '__main__':
-    main()
+    gen_kelly()

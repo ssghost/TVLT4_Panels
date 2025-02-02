@@ -18,9 +18,9 @@ def main() -> None:
     
     fig_list = []
     for sym, data in data_dict.items:
-        data["10-day MA"] = data["Close"].rolling(window=10).mean()
-        data["20-day MA"] = data["Close"].rolling(window=20).mean()
-        trace0 = go.Scatter(x=data.date, y=data.Close, name=sym)
+        data["10-day MA"] = data["close"].rolling(window=10).mean()
+        data["20-day MA"] = data["close"].rolling(window=20).mean()
+        trace0 = go.Scatter(x=data.date, y=data.close, name=sym)
         trace1 = go.Scatter(x=data.date, y=data["10-day MA"], name="10-day MA")
         trace2 = go.Scatter(x=data.date, y=data["20-day MA"], name="20-day MA")
         fig = go.Figure([trace0, trace1, trace2])
