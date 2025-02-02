@@ -13,11 +13,11 @@ def main() -> None:
     data_dict = {}
     for sym in symbols:
         data = pd.read_csv(f"./crypto-daily/{sym}.csv")
-        data["date"] = pd.to_datetime(data["date"], format="%Y/%m/%d")
+        data["date"] = pd.to_datetime(data["date"], format="%Y-%m-%d")
         data_dict[sym] = data
     
     fig_list = []
-    for sym, data in data_dict.items:
+    for sym, data in data_dict.items():
         data["10-day MA"] = data["close"].rolling(window=10).mean()
         data["20-day MA"] = data["close"].rolling(window=20).mean()
         trace0 = go.Scatter(x=data.date, y=data.close, name=sym)
@@ -28,7 +28,7 @@ def main() -> None:
         fig_list.append(fig)
 
     trace_list = []
-    for sym, data in data_dict.items:
+    for sym, data in data_dict.items():
         trace = go.Scatter(x=data.date, y=data.close, name=sym)
         trace_list.append(trace)
     fig = go.Figure(trace_list)
@@ -54,7 +54,7 @@ def main() -> None:
     fig_list.append(fig)
 
     trace_list = []
-    for sym, data in data_dict.items:
+    for sym, data in data_dict.items():
         trace = go.Scatterpolar(
             r=[data["close"].mean(), data["open"].mean(), data["low"].min(), data["high"].max()],
             theta=["Close", "Open", "Low", "High"],
@@ -87,7 +87,7 @@ def main() -> None:
     )
 
     bignum_list = []
-    for sym, data in data_dict.items:
+    for sym, data in data_dict.items():
         bignum = dp.BigNumber(
             heading=f"{sym} Performance",
                 value="${:,.2f}".format(data.iloc[-1].close),

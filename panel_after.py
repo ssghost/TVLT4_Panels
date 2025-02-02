@@ -13,7 +13,7 @@ def main() -> None:
     kelly_dict = gen_kelly()
 
     fig_list = []
-    for sym, data in kelly_dict.items:
+    for sym, data in kelly_dict.items():
         data["10-day MA"] = data["kelly"].rolling(window=10).mean()
         data["20-day MA"] = data["kelly"].rolling(window=20).mean()
         trace0 = go.Scatter(x=data.date, y=data.kelly, name=sym)
@@ -24,7 +24,7 @@ def main() -> None:
         fig_list.append(fig)
 
     trace_list = []
-    for sym, data in kelly_dict.items:
+    for sym, data in kelly_dict.items():
         trace = go.Scatter(x=data.date, y=data.kelly, name=sym)
         trace_list.append(trace)
     fig = go.Figure(trace_list)
@@ -50,7 +50,7 @@ def main() -> None:
     fig_list.append(fig)
 
     trace_list = []
-    for sym, data in kelly_dict.items:
+    for sym, data in kelly_dict.items():
         trace = go.Scatterpolar(
             r=[data["kelly"].mean(), data["close"].mean(), data["kelly"].min(), data["kelly"].max()],
             theta=["KellyMean", "CloseMean", "KellyLow", "KellyHigh"],
@@ -83,7 +83,7 @@ def main() -> None:
     )
 
     bignum_list = []
-    for sym, data in kelly_dict.items:
+    for sym, data in kelly_dict.items():
         bignum = dp.BigNumber(
             heading=f"{sym} Performance",
                 value="${:,.2f}".format(data.iloc[-1].kelly),

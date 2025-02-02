@@ -10,7 +10,7 @@ def data_load() -> Dict[str, pd.DataFrame]:
     data_dict = {}
     for sym in symbols:
         data = pd.read_csv(f"./crypto_daily/{sym}.csv")
-        data["date"] = pd.to_datetime(data["date"], format="%Y/%m/%d")
+        data["date"] = pd.to_datetime(data["date"], format="%Y-%m-%d")
         data_dict[sym] = data
     return data_dict
 
@@ -34,7 +34,7 @@ def get_kelly(data:pd.DataFrame) -> np.ndarray:
 def gen_kelly() -> Dict[str, pd.DataFrame]:
     data_dict = data_load()
     kelly_dict = {}
-    for sym, data in data_dict.items:
+    for sym, data in data_dict.items():
         X = data["close"].resample('D').last().pct_change().dropna()
         Y = X.copy()
         X = X.rolling(25).agg(["mean", "std"]).dropna
