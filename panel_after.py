@@ -80,7 +80,7 @@ def main() -> None:
             height=600,
             width=1150,
             colormap="RdBu",
-            title={"text": "ETH Price (Scatterplot Matrix)", "x": 0.5, "xanchor": "center"},
+            title={"text": "ETH Price Kelly Optd (Scatterplot Matrix)", "x": 0.5, "xanchor": "center"},
         )
     )
 
