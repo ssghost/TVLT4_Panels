@@ -6,6 +6,7 @@ import plotly.io as pio
 import datapane as dp
 
 from kelly import *
+from sharpe import *
 
 def main() -> None:
     pio.templates.default = "ggplot2"
@@ -49,11 +50,12 @@ def main() -> None:
     )
     fig_list.append(fig)
 
+    sharpe_dict = get_sharpe()
     trace_list = []
     for sym, data in kelly_dict.items():
         trace = go.Scatterpolar(
-            r=[data["kelly"].mean(), data["close"].mean(), data["kelly"].min(), data["kelly"].max()],
-            theta=["KellyMean", "CloseMean", "KellyLow", "KellyHigh"],
+            r=[data["kelly"].mean(), data["close"].mean(), sharpe_dict[f"{sym}_kelly"], sharpe_dict[sym]],
+            theta=["KellyMean", "CloseMean", "SharpeKelly", "SharpeClose"],
             name=sym,
             fill="toself",
         )
@@ -109,5 +111,5 @@ def main() -> None:
 
     dp.save_report(v, "report_kelly.html", open=True)
 
-if '__name__' == '__main__':
+if __name__ == '__main__':
     main()

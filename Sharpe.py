@@ -1,7 +1,9 @@
 import numpy as np
 import pandas as pd
 
-def sharpe_ratio(returns, risk_free_rate=0.0, annualization_factor=252):
+from kelly import *
+
+def sharpe_ratio(returns, risk_free_rate=0.001/365, annualization_factor=365):
     if isinstance(returns, pd.Series):
       returns = returns.values 
 
@@ -15,16 +17,16 @@ def sharpe_ratio(returns, risk_free_rate=0.0, annualization_factor=252):
         sharpe = (mean_excess_return / std_dev_excess_return) * np.sqrt(annualization_factor)
         return sharpe
 
+def get_sharpe() -> Dict[str, float]:
+    data_dict = data_load()
+    kelly_dict = gen_kelly()
+    sharpe_dict = {}
+    for sym in data_dict.keys():
+        sharpe = sharpe_ratio(data_dict[sym].close)
+        sharpe_kelly = sharpe_ratio(kelly_dict[sym].kelly)
+        sharpe_dict[sym] = sharpe
+        sharpe_dict[f"{sym}_kelly"] = sharpe_kelly
+    return sharpe_dict
 
-# Example Usage:
-# 1. Using a Pandas Series (recommended):
-np.random.seed(42)  # for reproducibility
-daily_returns = pd.Series(np.random.normal(0.0001, 0.01, 252)) # Example daily returns (mean 0.01%, std dev 1%)
-sharpe = sharpe_ratio(daily_returns, risk_free_rate=0.0001/252, annualization_factor=252) # Risk-free rate should be *per period*
-
-print(f"Sharpe Ratio (using Pandas Series): {sharpe}")
-
-# 2. Using a NumPy array:
-daily_returns_np = np.random.normal(0.0001, 0.01, 252)
-sharpe_np = sharpe_ratio(daily_returns_np, risk_free_rate=0.0001/252, annualization_factor=252)  # Risk-free rate should be *per period*
-print(f"Sharpe Ratio (using NumPy array): {sharpe_np}")
+if __name__ == '__main__':
+    get_sharpe()

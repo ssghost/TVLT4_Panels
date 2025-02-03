@@ -113,5 +113,5 @@ def main() -> None:
 
     dp.save_report(v, "report.html", open=True)
 
-if '__name__' == '__main__':
+if __name__ == '__main__':
     main()

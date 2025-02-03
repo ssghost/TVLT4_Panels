@@ -44,5 +44,5 @@ def gen_kelly() -> Dict[str, pd.DataFrame]:
 
     return kelly_dict
 
-if '__name__' == '__main__':
+if __name__ == '__main__':
     gen_kelly()
